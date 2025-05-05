@@ -19,19 +19,14 @@ void setup() {
     
     // The camera can be initialized directly using an 
     // element from the array returned by list():
-    cam = new Capture(this, cameras[1]);
+    cam = new Capture(this, cameras[0]);
     cam.start();     
   }      
   colorMode(HSB, 360, 100, 100);
 }
 
 void draw() {
-  colnum = 0;
-  background(color(colnum, 100, 100));
-  colnum = colnum + 3;
-  if(colnum > 360){
-    colnum = 0;  
-  }
+  background(0);
   
   cam.loadPixels(); //カメラ画像のpixel情報を読み込み
   int d = 15; //円の直径を定義
@@ -54,16 +49,18 @@ void draw() {
   int textSize = 40;
   int timePos_x = 20;
   int timePos_y = 20;
+  int gap = 5;
 
   //テキストサイズを設定
   textSize(textSize);
 
   //時刻が見えやすいように四角で塗る
-  fill(120, 100, 100);
-  rect(timePos_x, timePos_y, textWidth(timeString), textSize - textDescent());
+  noStroke();
+  fill(181, 98, 94);
+  rect(timePos_x - gap, timePos_y - gap, textWidth(timeString) + 2*gap, textSize - textDescent() + 2*gap);
 
   //時刻を表示
-  fill(240, 100, 100);
+  fill(2, 93, 93);
   textAlign(LEFT, TOP);
   text(h+":"+m+":"+s , timePos_x, timePos_y); 
 } 
