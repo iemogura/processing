@@ -2,7 +2,11 @@
 //接線方向に揺らす
 //揺らしてアニメーションにする
 //一周を何分割に分けて描画するかの分割数
-final int div = 48;
+final int div = 32;
+//何周するか
+final int numlap = 70;
+//どのくらい座標にばらつきをもたせるか？
+final int ramxy = 25;
 
 void setup(){
   size(1600,1600);
@@ -10,7 +14,8 @@ void setup(){
 }
 void draw(){
   circle(width/2, height/2, width);
-//  strokeWeight(2);
+  //線の太さ
+  strokeWeight(8);
 
 color c = color(0, 100, 100); 
 int len = 0;
@@ -21,14 +26,17 @@ int len = 0;
   int en_x = width/2;
   int en_y = height/2;
 
-//何周するか
-int numlap = 50;
 
+float add_x = 0;
+float add_y = 0;
   for(int i = 0; i < div * numlap; i++){
 //中心円からの距離の算出
     len = width/2 * i / (div * numlap);
-    en_x = int(width/2+ len*sin(TWO_PI*i/div));
-    en_y = int(height/2+ len* cos(TWO_PI*i/div));
+    add_x = random(-ramxy,ramxy);
+    add_y = random(-ramxy,ramxy);
+    
+    en_x = int(width/2+ len*sin(TWO_PI*i/div)+add_x);
+    en_y = int(height/2+ len* cos(TWO_PI*i/div)+add_y);
 
 //色の算出
     coli = i;
