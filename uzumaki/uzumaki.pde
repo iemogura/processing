@@ -2,7 +2,8 @@ int manyTimes = 20;
 int pointNumber = 47;
 float pointR = 0;
 float sita = 0.0;
-int sinR = 8;
+int sinR = 17;
+int frameCounter = 0;
 
 void centerPoint(float x,float y){
   point(x+ (width/2),y+ (height/2));  
@@ -13,6 +14,7 @@ void centerPointLine(float x1,float y1,float x2,float y2){
 }
 
 void setup(){
+  surface.setVisible( false );
   size(400,400);
   colorMode(HSB, 360,100,100); 
   frameRate(30);
@@ -22,16 +24,20 @@ void draw(){
   float[][] pointXY = new float[pointNumber * manyTimes][2];
 
   for(int i = 0; i < pointNumber * manyTimes ; i++){
+    /*
     pointXY[i][0] = pointR*cos( ( (i%pointNumber) / float(pointNumber) ) * TWO_PI );
     pointXY[i][1] = pointR*sin( ( (i%pointNumber) / float(pointNumber) ) * TWO_PI ); 
-    pointR = pointR + 0.5;
+    */
+    pointXY[i][0] = pointR*cos( i * 0.03 * sita);
+    pointXY[i][1] = pointR*sin( i * 0.03  * sita);
+    pointR = pointR + 0.9;
   }
 
   float[][] npointXY = new float[pointNumber * manyTimes][2];
 
   for(int i = 0; i < pointNumber * manyTimes ; i++){
+    //float lengthR =  sinR * sin(sita + ( i * 0.7) );
     float lengthR =  sinR * sin(sita + ( ( i % pointNumber ) / float(pointNumber) * TWO_PI) );
-    //float lengthR =  sinR * sin(sita + ( ( i % pointNumber ) / float(pointNumber) * TWO_PI) );
     float xSita = cos( atan2( pointXY[i][1] , pointXY[i][0] ) );
     float ySita = sin( atan2( pointXY[i][1] , pointXY[i][0] ) );
 
@@ -52,11 +58,14 @@ void draw(){
   for(int i = 0; i < pointNumber * manyTimes - 1; i++ ){
    
     stroke(color(int(360 * ( i % pointNumber) / pointNumber), 100, 100));
-    centerPoint(npointXY[i][0],npointXY[i][1]);
-    //centerPointLine(npointXY[i][0],npointXY[i][1],npointXY[i+1][0],npointXY[i+1][1]);
+    //centerPoint(npointXY[i][0],npointXY[i][1]);
+    centerPointLine(npointXY[i][0],npointXY[i][1],npointXY[i+1][0],npointXY[i+1][1]);
   }
 
   pointR = 0;
   //noLoop();
-  sita = sita + 0.5;
+  sita = sita + 0.15;
+  String num = nf(frameCounter++, 5, 0);
+  save("img"+ num +".png");
+
 }
