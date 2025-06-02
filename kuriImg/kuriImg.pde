@@ -1,3 +1,6 @@
+//下記サイトのソースを引用
+//https://editor.p5js.org/cdacanay/sketches/CjSGlk6m
+
 float a = 0.0;
 float b = 0.0;
 float c = 0.0;
